@@ -1,30 +1,86 @@
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Main {
     static Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
-        principalMenu();
+        int infinito = 0;
+        do {
+            principalMenu();
+        } while (infinito != 1);
     }
 
+    static int inputChoose(){
+        return sc.nextInt();
+    };
+
     static void principalMenu() {
-        System.out.println("+++++MENU CONCESSIONÁRIA+++++" +
-                "\n1 - Cadastrar Automóvel" +
-                "\n2 - Listar Automóveis" +
-                "\n3 - Editar" +
-                "\n4 - Remover");
+        int choose;
+
+            System.out.println("+++++MENU CONCESSIONÁRIA+++++" +
+                    "\n1 - Cadastrar Automóvel" +
+                    "\n2 - Listar Automóveis" +
+                    "\n3 - Editar" +
+                    "\n4 - Remover");
+         choose = Integer.parseInt(JOptionPane.showInputDialog(null , "cadastra ai fdp"));
+
+
+            switch (choose) {
+                case 1:
+                    menuRegister();
+                    break;
+                case 2:
+                    listAutomobile();
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    removeAutomobile();
+                    break;
+            }
+    }
+
+    private static void removeAutomobile() {
+        System.out.println("+++++MENU REMOVER+++++" +
+                "\n1 - Remover Carro" +
+                "\n2 - Remover Moto");
         int choose = sc.nextInt();
 
         switch (choose){
             case 1:
-                menuRegister();
+                removeCar();
                 break;
             case 2:
-                listAutomobile();
+                removeMotorcycle();
+                break;
         }
     }
 
-    private static void listAutomobile() {
+    private static void removeMotorcycle() {
+    }
 
+    private static void removeCar() {
+        System.out.println("Insira a placa do carro: ");
+        String placa = sc.next();
+
+        Carro.removeCar(placa);
+    }
+
+    private static void listAutomobile() {
+        for (int i = 0; i < Moto.listMotorcycles.size(); i++){
+            System.out.println("Modelo: " + Moto.listMotorcycles.get(i).getModelo());
+            System.out.println("Placa: " + Moto.listMotorcycles.get(i).getPlaca());
+            System.out.println("Cor: " + Moto.listMotorcycles.get(i).getCor());
+            System.out.println("Ano: " + Moto.listMotorcycles.get(i).getAno());
+        }
+        for (int n = 0; n < Carro.listCars.size(); n++){
+            System.out.println("Modelo: " + Carro.listCars.get(n).getModelo());
+            System.out.println("Placa: " + Carro.listCars.get(n).getPlaca());
+            System.out.println("Cor: " + Carro.listCars.get(n).getCor());
+            System.out.println("Ano: " + Carro.listCars.get(n).getAno());
+        }
+        principalMenu();
     }
 
     private static void menuRegister() {
@@ -33,18 +89,16 @@ public class Main {
                 "\n2 - Registrar Moto");
         int choose = sc.nextInt();
 
-        switch (choose){
+        switch (choose) {
             case 1:
-                registerAutomobile(choose);
-//                registerCar(choose , cor , placa , modelo , ano);
-                break;
             case 2:
-//                registerMotorcycle(choose , cor , placa , modelo , ano);
+                registerAutomobile(choose);
+                break;
         }
     }
 
-    private static void registerAutomobile(int choose){
-        String cor , placa , modelo;
+    private static void registerAutomobile(int choose) {
+        String cor, placa, modelo;
         int ano;
 
         System.out.println("Insira a cor do automóvel");
@@ -59,47 +113,44 @@ public class Main {
         System.out.println("Insira o ano do automóvel");
         ano = sc.nextInt();
 
-        int verify = 0;
-
-        if (choose == 1){
-            registerCar(cor , placa , modelo , ano);
+        if (choose == 1) {
+            choose = 0;
+            registerCar(cor, placa, modelo, ano);
         } else {
-            registerMotorcycle(choose = 30 , cor , placa , modelo , ano);
+            choose = 0;
+            registerMotorcycle(cor, placa, modelo, ano);
         }
 
     }
 
 
-    private static void registerMotorcycle(int choose , String cor , String placa , String modelo , int ano) {
-        if (choose == 30){
-            System.out.println("A moto possui bagageiro?");
-            boolean bagageiro = sc.nextBoolean();
+    private static void registerMotorcycle(String cor, String placa, String modelo, int ano) {
 
-            System.out.println("Quantidade de cilindradas da moto:");
-            int cilindrada = sc.nextInt();
+        System.out.println("A moto possui bagageiro?");
+        boolean bagageiro = sc.nextBoolean();
 
-            System.out.println("Capacidade do tanque da moto:");
-            int capacidadeTanque = sc.nextInt();
+        System.out.println("Quantidade de cilindradas da moto:");
+        int cilindrada = sc.nextInt();
 
-            Moto.registerMotorcycle(cor , placa , modelo , ano , bagageiro , cilindrada , capacidadeTanque);
-        } else {
-            registerAutomobile(choose);
-        }
+        System.out.println("Capacidade do tanque da moto:");
+        int capacidadeTanque = sc.nextInt();
+
+        Moto.registerMotorcycle(cor, placa, modelo, ano, bagageiro, cilindrada, capacidadeTanque);
     }
 
-    private static void registerCar(String cor , String placa , String modelo , int ano) {
-            int cavaloPontencia , qtdPortas;
-            boolean estepe;
+    private static void registerCar(String cor, String placa, String modelo, int ano) {
+        int cavaloPontencia, qtdPortas;
+        boolean estepe;
 
-            System.out.println("Insira a quantidade de cavalos de potência:");
-            cavaloPontencia = sc.nextInt();
+        System.out.println("Insira a quantidade de cavalos de potência:");
+        cavaloPontencia = sc.nextInt();
 
-            System.out.println("Insira a quantidade de portas:");
-            qtdPortas = sc.nextInt();
+        System.out.println("Insira a quantidade de portas:");
+        qtdPortas = sc.nextInt();
 
-            System.out.println("O carro possui estepe?");
-            estepe = sc.hasNext();
+        System.out.println("O carro possui estepe?");
+        estepe = sc.hasNext();
 
-            Carro.registerCAR(cor , placa , modelo , ano ,cavaloPontencia , qtdPortas , estepe);
+        Carro.registerCAR(cor, placa, modelo, ano, cavaloPontencia, qtdPortas, estepe);
     }
 }

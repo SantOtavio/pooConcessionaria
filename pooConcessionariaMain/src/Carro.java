@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.ArrayList;
 
 public class Carro extends  Automovel{
@@ -6,6 +8,8 @@ public class Carro extends  Automovel{
 
     int cavaloPontencia, qtdPortas;
     boolean estepe;
+
+
 
     public int getCavaloPontencia() {
         return cavaloPontencia;
@@ -41,6 +45,17 @@ public class Carro extends  Automovel{
     public static void registerCAR(String cor, String placa, String modelo, int ano, int cavaloPontencia, int qtdPortas, boolean estepe) {
         Carro cTemp = new Carro(cor , placa , modelo , ano , cavaloPontencia, qtdPortas, estepe);
         listCars.add(cTemp);
-        Main.principalMenu();
+//        Main.principalMenu();
+    }
+
+    public static void removeCar(String placa) {
+        for (int i=0 ; i < listCars.size(); i++){
+                if (listCars.get(i).getPlaca().equals(placa)){
+                    listCars.remove(i);
+            } else {
+                    System.out.println("Placa errada");
+                    Main.principalMenu();
+                }
+        }
     }
 }
