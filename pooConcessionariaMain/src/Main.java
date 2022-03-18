@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.util.Scanner;
+import java.util.concurrent.LinkedTransferQueue;
 
 public class Main {
     static Scanner sc = new Scanner(System.in);
@@ -22,7 +23,8 @@ public class Main {
                     "\n1 - Cadastrar Automóvel" +
                     "\n2 - Listar Automóveis" +
                     "\n3 - Editar" +
-                    "\n4 - Remover");
+                    "\n4 - Remover" +
+                    "\n5 - Vender");
          choose = sc.nextInt();
 
 
@@ -38,7 +40,18 @@ public class Main {
                 case 4:
                     removeAutomobile();
                     break;
+                case 5:
+                    sellAutomobile();
             }
+    }
+
+    private static void sellAutomobile() {
+        System.out.println("Insira a placa do carro a ser vendido");
+        String placa = sc.next();
+        System.out.println("Insira o valor da venda");
+        double valor = sc.nextDouble();
+
+        Vendas.sellAutomobile(placa  , valor);
     }
 
     private static void removeAutomobile() {
@@ -68,19 +81,36 @@ public class Main {
     }
 
     private static void listAutomobile() {
-        for (int i = 0; i < Moto.listMotorcycles.size(); i++){
-            System.out.println("Modelo: " + Moto.listMotorcycles.get(i).getModelo());
-            System.out.println("Placa: " + Moto.listMotorcycles.get(i).getPlaca());
-            System.out.println("Cor: " + Moto.listMotorcycles.get(i).getCor());
-            System.out.println("Ano: " + Moto.listMotorcycles.get(i).getAno());
+        System.out.println("+++++MENU LISTAGEM" +
+                "\n1 - Carros no estoque" +
+                "\n2 - Carros vendidos");
+        int choose = sc.nextInt();
+
+
+        if (choose == 1){
+            for (int i = 0; i < Moto.listMotorcycles.size(); i++){
+                System.out.println("Modelo: " + Moto.listMotorcycles.get(i).getModelo());
+                System.out.println("Placa: " + Moto.listMotorcycles.get(i).getPlaca());
+                System.out.println("Cor: " + Moto.listMotorcycles.get(i).getCor());
+                System.out.println("Ano: " + Moto.listMotorcycles.get(i).getAno());
+            }
+            for (int n = 0; n < Carro.listCars.size(); n++){
+                System.out.println("Modelo: " + Carro.listCars.get(n).getModelo());
+                System.out.println("Placa: " + Carro.listCars.get(n).getPlaca());
+                System.out.println("Cor: " + Carro.listCars.get(n).getCor());
+                System.out.println("Ano: " + Carro.listCars.get(n).getAno());
+            }
+            principalMenu();
+        } else if (choose == 2){
+            for (int i = 0; i < Vendas.sellList.size() ; i++){
+                System.out.println("Placa: " +  Vendas.sellList.get(i).getPlaca()
+                + "\nValor da venda: " + Vendas.sellList.get(i).getValorVenda());
+            }
+            principalMenu();
+        } else {
+            System.out.println("ERROR");
+            principalMenu();
         }
-        for (int n = 0; n < Carro.listCars.size(); n++){
-            System.out.println("Modelo: " + Carro.listCars.get(n).getModelo());
-            System.out.println("Placa: " + Carro.listCars.get(n).getPlaca());
-            System.out.println("Cor: " + Carro.listCars.get(n).getCor());
-            System.out.println("Ano: " + Carro.listCars.get(n).getAno());
-        }
-        principalMenu();
     }
 
     private static void menuRegister() {
