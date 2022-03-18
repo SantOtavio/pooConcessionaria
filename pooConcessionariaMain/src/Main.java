@@ -23,7 +23,7 @@ public class Main {
                     "\n2 - Listar Automóveis" +
                     "\n3 - Editar" +
                     "\n4 - Remover");
-         choose = Integer.parseInt(JOptionPane.showInputDialog(null , "cadastra ai fdp"));
+         choose = sc.nextInt();
 
 
             switch (choose) {
@@ -149,78 +149,8 @@ public class Main {
         qtdPortas = sc.nextInt();
 
         System.out.println("O carro possui estepe?");
-        estepe = sc.hasNext();
+        estepe = sc.nextBoolean();
 
         Carro.registerCAR(cor, placa, modelo, ano, cavaloPontencia, qtdPortas, estepe);
-    }
-
-    private static void editarCarro() {
-        System.out.println("--- EDITAR CARRO ---");
-        System.out.println("Placa: ");
-        String placa = sc.next();
-        for (int i = 0; i < Carro.listCars.size(); i++) {
-            if (placa.equals(Carro.listCars.get(i).getPlaca())){
-                System.out.println("Placa do carro a ser editado: "+ placa +
-                        "\n1- Um atributo;" +
-                        "\n2- Todos os atributos.");
-                int choose = sc.nextInt();
-                switch (choose){
-                    case 1:
-                        System.out.println("Qual atributo deseja editar? " +
-                                "\n1- Placa;" +
-                                "\n3- Modelo;" +
-                                "\n4- Quantidade de portas;" +
-                                "\n5- Cavalos;" +
-                                "\n6- Porta-malas.");
-                        choose = sc.nextInt();
-                        switch (choose){
-                            case 1:
-                                System.out.println("Digite a nova placa: ");
-                                String placaNova = sc.next();
-                                Carro.listCars.get(i).setPlaca(placaNova);
-                                System.out.println("Placa editada com sucesso!");
-                                break;
-                            case 2:
-                                System.out.println("Digite o novo valor: ");
-                                double valor = sc.nextDouble();
-                                Carro.listCars.get(i).setValor(valor);
-                                System.out.println("Valor editado com sucesso!");
-                                break;
-                            case 3:
-                                System.out.println("Digite o novo modelo: ");
-                                String modelo = sc.next();
-                                Carro.listCars.get(i).setModelo(modelo);
-                                System.out.println("Modelo editado com sucesso!");
-                                break;
-                            case 4:
-                                System.out.println("Digite a nova quantidade de portas: ");
-                                int qtdPortas = sc.nextInt();
-                                Carro.listCars.get(i).setQtdPortas(qtdPortas);
-                                System.out.println("Quantidade de portas editada com sucesso!");
-                                break;
-                            case 5:
-                                System.out.println("Digite a nova quantidade de cavalos: ");
-                                double cavalos = sc.nextDouble();
-                                Carro.listCars.get(i).setCavalos(cavalos);
-                                System.out.println("Cavalos editado com sucesso!");
-                                break;
-                            case 6:
-                                System.out.println("Digite o novo porta-malas: ");
-                                double portaMalas = sc.nextDouble();
-                                Carro.listCars.get(i).setPortaMalas(portaMalas);
-                                System.out.println("Porta-malas editado com sucesso!");
-                                break;
-                        }
-                        break;
-                    case 2:
-                        Carro carro = cadastrarCarro();
-                        Carro.listCars.set(i, carro);
-                        break;
-                }
-            } else {
-                System.out.println("Carro não encontrado!");
-            }
-        }
-        menuPrincipal();
     }
 }
